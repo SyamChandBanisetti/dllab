@@ -1,0 +1,283 @@
+
+DEEP LEARNING LAB INTERNAL PROGRAMS (CSV BASED)
+==============================================
+
+1. ICE CREAM SALES PREDICTOR
+
+import pandas as pd
+from sklearn.linear_model import LinearRegression
+
+data = pd.read_csv("ice_cream_sales.csv")
+X = data[['Temperature']]
+y = data['Sales']
+
+model = LinearRegression()
+model.fit(X, y)
+
+print(model.predict([[33]]))
+
+Temperature,Sales
+20,200
+21,220
+22,240
+23,260
+24,280
+25,300
+26,320
+27,340
+28,360
+29,380
+30,400
+31,420
+32,440
+33,460
+34,480
+
+------------------------------------------------------
+
+2. STUDY HOURS TO MARKS PREDICTOR
+
+import pandas as pd
+from sklearn.linear_model import LinearRegression
+
+data = pd.read_csv("study_hours_marks.csv")
+X = data[['Hours']]
+y = data['Marks']
+
+model = LinearRegression()
+model.fit(X, y)
+
+print(model.predict([[6]]))
+
+
+Hours,Marks
+1,35
+2,38
+3,41
+4,44
+5,47
+6,50
+7,53
+8,56
+9,59
+10,62
+11,65
+12,68
+13,71
+14,74
+15,77
+-------------------------------------------------
+
+3. HOUSE PRICE ESTIMATOR
+
+import pandas as pd
+from sklearn.linear_model import LinearRegression
+
+data = pd.read_csv("house_price.csv")
+X = data[['Size','Rooms']]
+y = data['Price']
+
+model = LinearRegression()
+model.fit(X, y)
+
+print(model.predict([[1300,3]]))
+
+Size,Rooms,Price
+800,2,40
+850,2,42
+900,2,44
+950,3,46
+1000,3,48
+1050,3,50
+1100,3,52
+1150,4,55
+1200,4,58
+1250,4,60
+1300,4,63
+1350,5,66
+1400,5,69
+1450,5,72
+1500,5,75
+
+---------------------------------------------------------
+
+4. FUEL CONSUMPTION ESTIMATOR
+
+import pandas as pd
+from sklearn.linear_model import LinearRegression
+
+data = pd.read_csv("fuel_consumption.csv")
+X = data[['Weight','Speed']]
+y = data['Mileage']
+
+model = LinearRegression()
+model.fit(X, y)
+
+print(model.predict([[1300,52]]))
+
+Weight,Speed,Mileage
+1000,60,20.0
+1050,59,19.8
+1100,58,19.5
+1150,57,19.2
+1200,56,18.9
+1250,55,18.5
+1300,54,18.2
+1350,53,17.8
+1400,52,17.4
+1450,51,17.0
+1500,50,16.6
+1550,49,16.2
+1600,48,15.8
+1650,47,15.4
+1700,46,15.0
+
+----------------------------------------------------------
+
+
+5. CROP YIELD PREDICTOR
+
+import pandas as pd
+from sklearn.linear_model import LinearRegression
+
+data = pd.read_csv("crop_yield.csv")
+X = data[['Rainfall','Fertilizer']]
+y = data['Yield']
+
+model = LinearRegression()
+model.fit(X, y)
+
+print(model.predict([[150,32]]))
+
+
+Rainfall,Fertilizer,Yield
+100,20,30
+105,21,32
+110,22,34
+115,23,36
+120,24,38
+125,25,40
+130,26,42
+135,27,44
+140,28,46
+145,29,48
+150,30,50
+155,31,52
+160,32,54
+165,33,56
+170,34,58
+
+==============================================================
+
+
+DEEP LEARNING LAB PROGRAMS (FILE BASED)
+=====================================
+
+----------------------------------------
+6. PROGRAM TO CONVERT SPEECH INTO TEXT
+----------------------------------------
+(Input: audio.wav)
+
+import speech_recognition as sr
+
+r = sr.Recognizer()
+
+with sr.AudioFile("audio.wav") as source:
+    audio = r.record(source)
+
+text = r.recognize_google(audio)
+print("Converted Text:", text)
+
+with open("output_text.txt", "w") as f:
+    f.write(text)
+
+
+----------------------------------------
+7. PROGRAM TO CONVERT TEXT INTO SPEECH
+----------------------------------------
+(Input: input_text.txt)
+
+import pyttsx3
+
+engine = pyttsx3.init()
+
+with open("input_text.txt", "r") as f:
+    text = f.read()
+
+engine.say(text)
+engine.runAndWait()
+
+Deep Learning is a subset of machine learning.
+It uses neural networks with multiple layers.
+Text to speech conversion helps in accessibility.
+
+
+
+----------------------------------------
+8. PROGRAM TO CONVERT VIDEO INTO FRAMES
+----------------------------------------
+(Input: video.mp4)
+
+import cv2
+
+video = cv2.VideoCapture("video.mp4")
+count = 0
+
+while True:
+    success, frame = video.read()
+    if not success:
+        break
+    cv2.imwrite("frame_" + str(count) + ".jpg", frame)
+    count += 1
+
+video.release()
+print("Video converted into frames successfully")
+
+
+----------------------------------------
+9. TIME SERIES FORECASTING USING LSTM
+----------------------------------------
+(Input: timeseries.csv)
+
+import pandas as pd
+import numpy as np
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import LSTM, Dense
+
+data = pd.read_csv("timeseries.csv")
+values = data['value'].values
+
+X, y = [], []
+for i in range(len(values)-1):
+    X.append(values[i])
+    y.append(values[i+1])
+
+X = np.array(X).reshape(-1, 1, 1)
+y = np.array(y)
+
+model = Sequential()
+model.add(LSTM(10, input_shape=(1, 1)))
+model.add(Dense(1))
+
+model.compile(optimizer='adam', loss='mse')
+model.fit(X, y, epochs=200, verbose=0)
+
+print("Next value prediction:", model.predict(X[-1].reshape(1,1,1)))
+
+value
+10
+12
+15
+18
+22
+27
+33
+40
+48
+57
+67
+78
+90
+103
+117
+
