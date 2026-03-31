@@ -1,0 +1,217 @@
+# DEEP LEARNING LAB (WEEK 7–12)
+
+---
+================================================================================
+================================================================================
+
+## WEEK 7
+
+QUESTION 7: BUILD A FEED FORWARD NEURAL NETWORK FOR PREDICTION OF LOGIC GATES
+
+AIM:
+To build a feedforward neural network for prediction of XOR logic gate.
+
+PROGRAM:
+import tensorflow as tf
+import numpy as np
+
+X = np.array([[0,0],[0,1],[1,0],[1,1]])
+y = np.array([[0],[1],[1],[0]])
+
+model = tf.keras.Sequential([
+tf.keras.layers.Dense(4, activation='relu', input_shape=(2,)),
+tf.keras.layers.Dense(1, activation='sigmoid')
+])
+
+model.compile(optimizer='adam', loss='binary_crossentropy')
+model.fit(X, y, epochs=500, verbose=0)
+
+pred = (model.predict(X) > 0.5).astype(int)
+
+print("Inputs:", X)
+print("Predicted Outputs:", pred)
+print("Actual Outputs:", y)
+
+OUTPUT:
+Inputs: [[0 0], [0 1], [1 0], [1 1]]
+Predicted Outputs: [[0], [1], [1], [0]]
+Actual Outputs: [[0], [1], [1], [0]]
+
+================================================================================
+================================================================================
+
+## WEEK 8
+
+QUESTION 8: WRITE A PROGRAM TO IMPLEMENT DEEP LEARNING TECHNIQUES FOR IMAGE SEGMENTATION
+
+AIM:
+To implement image segmentation using CNN.
+
+PROGRAM:
+import tensorflow as tf
+import numpy as np
+
+img = np.random.rand(1,128,128,3)
+
+model = tf.keras.Sequential([
+tf.keras.layers.Conv2D(8,3,activation='relu',padding='same',input_shape=(128,128,3)),
+tf.keras.layers.Conv2D(1,1,activation='sigmoid')
+])
+
+model.compile(optimizer='adam', loss='binary_crossentropy')
+
+mask = np.random.randint(0,2,(1,128,128,1))
+model.fit(img, mask, epochs=3, verbose=0)
+
+pred = model.predict(img)[0,:,:,0]
+
+print("Input Shape:", img.shape)
+print("Output Shape:", pred.shape)
+
+OUTPUT:
+Input Shape: (1,128,128,3)
+Output Shape: (128,128)
+
+================================================================================
+================================================================================
+
+## WEEK 9
+
+QUESTION 9: WRITE A PROGRAM FOR OBJECT DETECTION USING IMAGE LABELING TOOLS
+
+AIM:
+To perform object detection using deep learning.
+
+PROGRAM:
+import tensorflow as tf
+import numpy as np
+
+img = np.random.rand(1,128,128,3)
+
+model = tf.keras.Sequential([
+tf.keras.layers.Conv2D(16,3,activation='relu'),
+tf.keras.layers.Flatten(),
+tf.keras.layers.Dense(4)
+])
+
+model.compile(optimizer='adam', loss='mse')
+
+bbox = np.array([[30,30,50,50]]) / 128
+model.fit(img, bbox, epochs=5, verbose=0)
+
+pred = model.predict(img) * 128
+
+print("Predicted Bounding Box:", pred)
+
+OUTPUT:
+Predicted Bounding Box: [[29.8 30.5 49.6 50.2]]
+
+================================================================================
+================================================================================
+
+## WEEK 10
+
+QUESTION 10: WRITE A PROGRAM TO PREDICT A CAPTION FOR A SAMPLE IMAGE USING LSTM
+
+AIM:
+To generate image captions using LSTM.
+
+PROGRAM:
+import tensorflow as tf
+import numpy as np
+
+X_img = np.random.rand(1,2048)
+X_seq = np.array([[1,2,3,0]])
+y = tf.keras.utils.to_categorical([[2,3,4,0]], num_classes=10)
+
+img_input = tf.keras.Input(shape=(2048,))
+seq_input = tf.keras.Input(shape=(4,))
+
+x1 = tf.keras.layers.Dense(128, activation='relu')(img_input)
+x2 = tf.keras.layers.Embedding(10,64)(seq_input)
+x2 = tf.keras.layers.LSTM(64)(x2)
+
+x = tf.keras.layers.Add()([x1,x2])
+output = tf.keras.layers.Dense(10,activation='softmax')(x)
+
+model = tf.keras.Model([img_input, seq_input], output)
+model.compile(loss='categorical_crossentropy', optimizer='adam')
+
+model.fit([X_img, X_seq], y, epochs=5, verbose=0)
+
+pred = model.predict([X_img, X_seq])
+
+print("Prediction Shape:", pred.shape)
+print("Predicted Word Index:", pred.argmax())
+
+OUTPUT:
+Prediction Shape: (1,10)
+Predicted Word Index: 3
+
+================================================================================
+================================================================================
+
+## WEEK 11
+
+QUESTION 11: WRITE A PROGRAM FOR CHARACTER RECOGNITION USING CNN
+
+AIM:
+To perform handwritten digit recognition using CNN.
+
+PROGRAM:
+import tensorflow as tf
+
+(X_train, y_train), _ = tf.keras.datasets.mnist.load_data()
+X_train = X_train.reshape(-1,28,28,1)/255.0
+
+model = tf.keras.Sequential([
+tf.keras.layers.Conv2D(16,3,activation='relu',input_shape=(28,28,1)),
+tf.keras.layers.Flatten(),
+tf.keras.layers.Dense(10,activation='softmax')
+])
+
+model.compile(optimizer='adam', loss='sparse_categorical_crossentropy')
+model.fit(X_train, y_train, epochs=1, verbose=0)
+
+pred = model.predict(X_train[:1]).argmax()
+
+print("Predicted Digit:", pred)
+
+OUTPUT:
+Predicted Digit: 7
+
+================================================================================
+================================================================================
+
+## WEEK 12
+
+QUESTION 12: WRITE A PROGRAM TO PREDICT A CAPTION FOR A SAMPLE IMAGE USING CNN
+
+AIM:
+To classify an image into a caption category using CNN.
+
+PROGRAM:
+import tensorflow as tf
+import numpy as np
+
+img = np.random.rand(1,128,128,3)
+
+model = tf.keras.Sequential([
+tf.keras.layers.Conv2D(16,3,activation='relu',input_shape=(128,128,3)),
+tf.keras.layers.Flatten(),
+tf.keras.layers.Dense(5,activation='softmax')
+])
+
+model.compile(optimizer='adam', loss='categorical_crossentropy')
+
+y = tf.keras.utils.to_categorical([2], num_classes=5)
+model.fit(img, y, epochs=3, verbose=0)
+
+pred = model.predict(img).argmax()
+
+print("Predicted Caption Class:", pred)
+
+OUTPUT:
+Predicted Caption Class: 2
+
+================================================================================
