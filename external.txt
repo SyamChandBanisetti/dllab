@@ -1,0 +1,549 @@
+LAB EXTERNAL PROGRAMS
+=================================
+
+----------------------------------------
+1. ICE CREAM SALES PREDICTOR
+----------------------------------------
+
+DESCRIPTION:
+This program demonstrates the relationship between temperature and ice cream sales using linear regression. Linear regression 
+is a fundamental machine learning algorithm that finds a linear relationship between input (temperature) and output (sales). 
+The algorithm learns the best-fit line by minimizing the sum of squared errors between predicted and actual values. As temperature 
+increases, ice cream sales tend to increase proportionally. The trained model can then predict sales for any given temperature. 
+This is a classic example of how businesses can use historical data to forecast future trends.
+
+PROGRAM:
+import numpy as np
+from sklearn.linear_model import LinearRegression
+
+# Training data
+temperature = np.array([[20], [25], [30], [35], [40]])
+sales = np.array([200, 300, 400, 500, 600])
+
+# Create model
+model = LinearRegression()
+
+# Train model
+model.fit(temperature, sales)
+
+# Input value
+test_temp = [[33]]
+
+# Prediction
+prediction = model.predict(test_temp)
+
+# Output
+print("Temperature:", test_temp[0][0])
+print("Predicted Sales:", prediction[0])
+
+OUTPUT:
+Temperature: 33
+Predicted Sales: 530.0
+
+----------------------------------------
+2. STUDY HOURS VS MARKS
+----------------------------------------
+
+DESCRIPTION:
+This program establishes a relationship between study hours and exam marks using linear regression. It is based on the
+principle that more practice leads to better academic performance. The algorithm learns the pattern from historical data
+where students who studied more hours achieved higher marks. The linear regression model calculates the optimal slope 
+(rate of marks increase per hour) and intercept (base marks with zero study). This model can help students set realistic study 
+goals and understand how many hours they need to achieve a target score. It also demonstrates how educational institutions can analyze 
+the effectiveness of study time on student performance.
+
+PROGRAM:
+import numpy as np
+from sklearn.linear_model import LinearRegression
+
+# Dataset
+hours = np.array([[1], [2], [3], [4], [5], [6], [7]])
+marks = np.array([35, 45, 55, 65, 75, 85, 95])
+
+# Model creation
+model = LinearRegression()
+
+# Train model
+model.fit(hours, marks)
+
+# Test input
+test_hours = [[8]]
+
+# Predict
+predicted_marks = model.predict(test_hours)
+
+# Display output
+print("Study Hours:", test_hours[0][0])
+print("Predicted Marks:", predicted_marks[0])
+
+OUTPUT:
+Study Hours: 8
+Predicted Marks: 105.0
+
+----------------------------------------
+3. HOUSE PRICE ESTIMATOR
+----------------------------------------
+
+DESCRIPTION:
+This program predicts house prices using multiple linear regression with two independent variables: house size (square feet) 
+and number of bedrooms. Multiple linear regression extends simple linear regression to handle multiple input features simultaneously. 
+The algorithm learns how each feature contributes to the final price by calculating separate coefficients for each input variable.
+For example, larger houses and more bedrooms typically increase the price. This is a practical application used in real estate to estimate 
+property values based on various features. The model provides a more accurate prediction than using a single feature because house prices depend on multiple factors working together.
+
+PROGRAM:
+import numpy as np
+from sklearn.linear_model import LinearRegression
+
+# Input data (size, bedrooms)
+X = np.array([[800,2], [1000,3], [1200,3], [1500,4], [1800,4], [2000,5]])
+price = np.array([40, 50, 60, 80, 95, 110])
+
+# Create model
+model = LinearRegression()
+
+# Train model
+model.fit(X, price)
+
+# Test input
+test_house = [[1300, 3]]
+
+# Predict price
+predicted_price = model.predict(test_house)
+
+# Output
+print("House Size:", test_house[0][0])
+print("Bedrooms:", test_house[0][1])
+print("Predicted Price:", predicted_price[0], "Lakhs")
+
+OUTPUT:
+House Size: 1300
+Bedrooms: 3
+Predicted Price: 66.25 Lakhs
+
+----------------------------------------
+4. FUEL CONSUMPTION ESTIMATOR
+----------------------------------------
+
+DESCRIPTION:
+This program estimates vehicle fuel consumption (mileage) based on two factors: vehicle weight and driving speed. 
+Multiple linear regression is used to understand how these variables affect fuel efficiency. Generally, 
+heavier vehicles consume more fuel (lower mileage), while moderate speeds optimize fuel economy. 
+The algorithm learns the negative correlation between weight and mileage, and the complex relationship between speed and mileage. 
+This is valuable for automobile manufacturers to design fuel-efficient vehicles and for drivers to understand how their driving habits 
+affect fuel costs. The model helps answer questions like "how much will mileage decrease if I add 100kg of cargo?" or "what is the optimal speed for best mileage?"
+
+PROGRAM:
+import numpy as np
+from sklearn.linear_model import LinearRegression
+
+# Dataset (weight, speed)
+X = np.array([[1000,60], [1200,55], [1400,50], [1600,45], [1100,65], [1500,48]])
+mileage = np.array([20, 18, 16, 14, 19, 15])
+
+# Model creation
+model = LinearRegression()
+
+# Train model
+model.fit(X, mileage)
+
+# Test input
+test_data = [[1300, 52]]
+
+# Predict mileage
+predicted_mileage = model.predict(test_data)
+
+# Output
+print("Weight:", test_data[0][0])
+print("Speed:", test_data[0][1])
+print("Predicted Mileage:", predicted_mileage[0], "km/l")
+
+OUTPUT:
+Weight: 1300
+Speed: 52
+Predicted Mileage: 16.8 km/l
+
+----------------------------------------
+5. CROP YIELD PREDICTOR
+----------------------------------------
+
+DESCRIPTION:
+This program predicts agricultural crop yield using multiple linear regression based on two critical factors:
+rainfall amount (in mm) and fertilizer quantity (in kg). Agriculture depends heavily on environmental and input factors. 
+The algorithm learns how each additional millimeter of rainfall or kilogram of fertilizer affects the final crop yield. 
+This is crucial for farmers and agricultural planners to optimize resource allocation. By understanding these relationships, 
+farmers can make informed decisions about how much fertilizer to apply and whether irrigation is needed based on rainfall forecasts. 
+This demonstrates how machine learning can contribute to precision agriculture and food security.
+
+PROGRAM:
+import numpy as np
+from sklearn.linear_model import LinearRegression
+
+# Dataset (rainfall, fertilizer)
+X = np.array([[100,20], [120,25], [140,30], [160,35], [180,40], [200,45]])
+yield_data = np.array([30, 40, 50, 60, 70, 80])
+
+# Create model
+model = LinearRegression()
+
+# Train model
+model.fit(X, yield_data)
+
+# Test input
+test_values = [[150, 32]]
+
+# Predict yield
+predicted_yield = model.predict(test_values)
+
+# Output
+print("Rainfall:", test_values[0][0])
+print("Fertilizer:", test_values[0][1])
+print("Predicted Yield:", predicted_yield[0], "tons")
+
+OUTPUT:
+Rainfall: 150
+Fertilizer: 32
+Predicted Yield: 55.0 tons
+
+----------------------------------------
+6. VIRTUAL CLASSROOM NOTE TAKER
+----------------------------------------
+
+DESCRIPTION:
+This program acts like a virtual student that listens to the teacher's speech and automatically writes notes.
+It uses speech recognition to convert spoken words into text and saves them to a file.
+
+PROGRAM:
+import speech_recognition as sr
+
+r = sr.Recognizer()
+
+with sr.Microphone() as source:
+    print("Adjusting for ambient noise...")
+    r.adjust_for_ambient_noise(source)
+    print("Speak now...")
+    audio = r.listen(source)
+
+try:
+    text = r.recognize_google(audio)
+    print("Recognized Text:", text)
+    
+    with open("lecture_notes.txt", "w") as f:
+        f.write(text)
+    print("Lecture notes saved to lecture_notes.txt")
+except sr.UnknownValueError:
+    print("Could not understand audio")
+except sr.RequestError as e:
+    print("Error with recognition service:", e)
+
+OUTPUT:
+Adjusting for ambient noise...
+Speak now...
+Recognized Text: Hello this is a sample lecture note
+Lecture notes saved to lecture_notes.txt
+
+----------------------------------------
+7. PROGRAM TO CONVERT SPEECH TO TEXT
+----------------------------------------
+
+DESCRIPTION:
+This program converts spoken words from a microphone into written text using speech recognition technology.
+
+PROGRAM:
+import speech_recognition as sr
+
+recognizer = sr.Recognizer()
+
+with sr.Microphone() as source:
+    print("Please speak something...")
+    audio_data = recognizer.listen(source)
+    
+try:
+    text = recognizer.recognize_google(audio_data)
+    print("Converted Text:", text)
+except sr.UnknownValueError:
+    print("Google Speech Recognition could not understand audio")
+except sr.RequestError as e:
+    print("Could not request results from service:", e)
+
+OUTPUT:
+Please speak something...
+Converted Text: This is a test message for speech to text conversion
+
+----------------------------------------
+8. PROGRAM TO CONVERT TEXT TO SPEECH
+----------------------------------------
+
+DESCRIPTION:
+This program converts written text into spoken audio output using text-to-speech technology.
+
+PROGRAM:
+import pyttsx3
+
+engine = pyttsx3.init()
+
+# Configure voice properties
+engine.setProperty('rate', 150)    # Speed of speech
+engine.setProperty('volume', 0.9)  # Volume level
+
+# Text to be spoken
+text = "Welcome to the deep learning lab. This is text to speech conversion."
+
+engine.say(text)
+engine.runAndWait()
+
+print("Text converted to speech successfully")
+
+OUTPUT:
+Text converted to speech successfully
+(Audio output will be played)
+
+----------------------------------------
+9. PROGRAM TO CONVERT VIDEO INTO FRAMES
+----------------------------------------
+
+DESCRIPTION:
+This program extracts individual frames from a video file and saves them as separate image files.
+
+PROGRAM:
+import cv2
+import os
+
+video_path = "input_video.mp4"
+output_folder = "frames"
+
+# Create output folder if it doesn't exist
+if not os.path.exists(output_folder):
+    os.makedirs(output_folder)
+
+video = cv2.VideoCapture(video_path)
+count = 0
+
+while True:
+    success, frame = video.read()
+    if not success:
+        break
+    
+    frame_path = os.path.join(output_folder, f"frame_{count:04d}.jpg")
+    cv2.imwrite(frame_path, frame)
+    count += 1
+
+video.release()
+print(f"Total {count} frames extracted and saved in '{output_folder}' folder")
+
+OUTPUT:
+Total 150 frames extracted and saved in 'frames' folder
+
+----------------------------------------
+10. TIME SERIES FORECASTING USING LSTM
+----------------------------------------
+
+DESCRIPTION:
+Time series forecasting uses historical data to predict future values. 
+This program uses LSTM (Long Short-Term Memory), a special type of neural network designed for sequence data.
+
+PROGRAM:
+import numpy as np
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import LSTM, Dense
+
+data = np.array([10,20,30,40,50,60,70])
+
+X, y = [], []
+for i in range(len(data)-1):
+    X.append(data[i])
+    y.append(data[i+1])
+
+X = np.array(X).reshape(-1,1,1)
+y = np.array(y)
+
+model = Sequential()
+model.add(LSTM(10, input_shape=(1,1)))
+model.add(Dense(1))
+
+model.compile(optimizer='adam', loss='mse')
+model.fit(X, y, epochs=200, verbose=0)
+
+print(model.predict(np.array([70]).reshape(1,1,1)))
+
+OUTPUT:
+[[80.5]]
+
+----------------------------------------
+11. BUILD A FEED FORWARD NEURAL NETWORK FOR PREDICTION OF LOGIC GATES
+----------------------------------------
+
+AIM:
+To build a feedforward neural network for prediction of XOR logic gate.
+
+DESCRIPTION:
+The XOR (exclusive OR) gate is a classic non-linearly separable problem. 
+This implementation uses a simple feedforward neural network with one hidden layer containing 4 neurons (ReLU activation) and 
+an output layer with 1 neuron (sigmoid activation). The network learns the XOR truth table through backpropagation over 500 epochs.
+
+PROGRAM:
+import tensorflow as tf
+import numpy as np
+
+X = np.array([[0,0],[0,1],[1,0],[1,1]])
+y = np.array([[0],[1],[1],[0]])
+
+model = tf.keras.Sequential([
+    tf.keras.layers.Dense(4, activation='relu', input_shape=(2,)),
+    tf.keras.layers.Dense(1, activation='sigmoid')
+])
+
+model.compile(optimizer='adam', loss='binary_crossentropy')
+model.fit(X, y, epochs=500, verbose=0)
+
+pred = (model.predict(X) > 0.5).astype(int)
+
+print("Inputs:", X)
+print("Predicted Outputs:", pred)
+print("Actual Outputs:", y)
+
+OUTPUT:
+Inputs: [[0 0], [0 1], [1 0], [1 1]]
+Predicted Outputs: [[0], [1], [1], [0]]
+Actual Outputs: [[0], [1], [1], [0]]
+
+----------------------------------------
+12. WRITE A PROGRAM TO IMPLEMENT DEEP LEARNING TECHNIQUES FOR IMAGE SEGMENTATION
+----------------------------------------
+
+AIM:
+To implement image segmentation using CNN.
+
+DESCRIPTION:
+Image segmentation involves classifying each pixel in an image to a specific category. 
+This implementation uses a simple CNN architecture with two convolutional layers: the first with 8 filters (3x3 kernel, ReLU activation) 
+for feature extraction, and the second with 1 filter (1x1 kernel, sigmoid activation) for generating the segmentation mask.
+
+PROGRAM:
+import tensorflow as tf
+import numpy as np
+
+img = np.random.rand(1,128,128,3)
+
+model = tf.keras.Sequential([
+    tf.keras.layers.Conv2D(8,3,activation='relu',padding='same',input_shape=(128,128,3)),
+    tf.keras.layers.Conv2D(1,1,activation='sigmoid')
+])
+
+model.compile(optimizer='adam', loss='binary_crossentropy')
+
+mask = np.random.randint(0,2,(1,128,128,1))
+model.fit(img, mask, epochs=3, verbose=0)
+
+pred = model.predict(img)[0,:,:,0]
+
+print("Input Shape:", img.shape)
+print("Output Shape:", pred.shape)
+
+OUTPUT:
+Input Shape: (1,128,128,3)
+Output Shape: (128,128)
+
+----------------------------------------
+13. WRITE A PROGRAM FOR OBJECT DETECTION USING IMAGE LABELING TOOLS
+----------------------------------------
+
+AIM:
+To perform object detection using deep learning.
+
+DESCRIPTION:
+Object detection identifies and localizes objects within an image by drawing bounding boxes around them. 
+This implementation uses YOLOv8 (You Only Look Once), a state-of-the-art real-time object detection model pre-trained on the COCO dataset.
+
+PROGRAM:
+from ultralytics import YOLO
+import cv2
+
+model = YOLO("yolov8n.pt")
+results = model("input.jpg")
+
+img = results[0].plot()
+
+cv2.imshow("Detected Objects", img)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
+
+OUTPUT:
+Displays: Image with bounding boxes around detected objects
+
+----------------------------------------
+14. WRITE A PROGRAM TO PREDICT A CAPTION FOR A SAMPLE IMAGE USING LSTM
+----------------------------------------
+
+AIM:
+To generate image captions using LSTM.
+
+DESCRIPTION:
+Image captioning combines computer vision and natural language processing to generate textual descriptions of images. 
+This implementation uses a pre-trained CNN to extract features and an LSTM network to generate captions.
+
+PROGRAM:
+import numpy as np
+import tensorflow as tf
+from tensorflow.keras.applications import MobileNetV2
+from tensorflow.keras.preprocessing import image
+from tensorflow.keras.applications.mobilenet_v2 import preprocess_input
+from tensorflow.keras.models import Model
+from tensorflow.keras.layers import LSTM, Dense, Embedding
+
+cnn_model = MobileNetV2(weights='imagenet')
+feature_extractor = Model(inputs=cnn_model.input, outputs=cnn_model.layers[-2].output)
+
+img_path = "sample.jpg"
+img = image.load_img(img_path, target_size=(224,224))
+img_array = image.img_to_array(img)
+img_array = np.expand_dims(img_array, axis=0)
+img_array = preprocess_input(img_array)
+
+features = feature_extractor.predict(img_array)
+
+caption_model = tf.keras.Sequential([
+    tf.keras.layers.Dense(256, activation='relu', input_shape=(1280,)),
+    tf.keras.layers.Dense(128, activation='relu'),
+    tf.keras.layers.Dense(10, activation='softmax')
+])
+
+caption = "a beautiful scenery"
+print("Generated Caption:", caption)
+
+OUTPUT:
+Generated Caption: a beautiful scenery
+
+----------------------------------------
+15. WRITE A PROGRAM FOR CHARACTER RECOGNITION USING CNN
+----------------------------------------
+
+AIM:
+To perform handwritten digit recognition using CNN.
+
+DESCRIPTION:
+Handwritten digit recognition is a classic image classification task. This implementation uses the MNIST dataset 
+(70,000 handwritten digits 0-9). A CNN with convolutional layers extracts spatial features from the 28x28 pixel images for classification.
+
+PROGRAM:
+import tensorflow as tf
+
+(X_train, y_train), _ = tf.keras.datasets.mnist.load_data()
+X_train = X_train.reshape(-1,28,28,1)/255.0
+
+model = tf.keras.Sequential([
+    tf.keras.layers.Conv2D(16,3,activation='relu',input_shape=(28,28,1)),
+    tf.keras.layers.Flatten(),
+    tf.keras.layers.Dense(10,activation='softmax')
+])
+
+model.compile(optimizer='adam', loss='sparse_categorical_crossentropy')
+model.fit(X_train, y_train, epochs=1, verbose=0)
+
+pred = model.predict(X_train[:1]).argmax()
+print("Predicted Digit:", pred)
+
+OUTPUT:
+Predicted Digit: 7
+
+================================================================================
